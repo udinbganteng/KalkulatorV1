@@ -110,7 +110,7 @@
         <h2>Kalkulator (agak) Pintar</h2>
         <div class="tempatKeluar" id="output"></div>
         <div class="listTombol">
-            <button class="spesial hap" onclick="document.getElementById('output').innerHTML=''">Hapus</button>
+            <button class="spesial hap" onclick="delOne()">Hapus</button>
             <button class="spesial hap" onclick="document.getElementById('output').innerHTML=''">Bersihkan</button>
             <button onclick="angka('7')">7</button>
             <button onclick="angka('8')">8</button>
@@ -187,6 +187,12 @@
 
             let itungan = display.innerText.replace(/×/g, '*').replace(/÷/g, '/')
             display.innerHTML = eval(itungan)
+        }
+
+        function delOne(){
+            let kurangi = display.innerText
+            display.innerText = kurangi.slice(0, -1)
+
         }
 
         document.addEventListener('keydown', function (ujang) {
