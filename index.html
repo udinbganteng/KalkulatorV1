@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator (agak) Pintar</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        h2 {
+            margin-top: -5px;
+            font-size: 20px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            color: #BFC9D1;
+            display: grid;
+            place-items: center;
+        }
+        
+        .calcu {
+            background-color: #25343F;
+            border: 1px solid #222;
+            border-radius: 10px;
+            padding: 20px 20px;
+            max-width: 70%;
+            margin: 30px auto;
+        }
+
+        .tempatKeluar {
+            background-color: #EAEFEF;
+            overflow-wrap: break-word;
+            word-break: break-all;
+
+            user-select: none;
+            -ms-user-select: none;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            
+            min-height: 15px;
+            height: auto;
+            
+            font-size: 20px;
+            margin-bottom: 25px;
+            text-align: right;
+            border: 2px solid #333;
+            border-radius: 1em;
+            padding: 15px 50px 20px 50px;
+            
+        }
+        
+        .listTombol {
+            
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            margin: 10px auto;
+            gap: 10px;
+        }
+        
+        .listTombol button {
+            background-color: #FF9B51;
+            border-radius: 1em;
+            font-size: 20px;
+            cursor: pointer;
+            padding: 10px;
+            border-style: none;
+        }
+
+
+        .listTombol button:active{
+            background-color: #f4be94;
+        }
+        .listTombol .hap {
+            font-size: 16px;
+        }
+
+        .spesial {
+            grid-column: span 2;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Latihan 1 -->
+    <!-- <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="ikan"> -->
+    <!-- <button onclick="ambil()">keluar di console</button> -->
+    <!-- <br><br><br> -->
+
+    <!-- Latihan 2 -->
+    <!-- <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="tambahtambah1"> -->
+    <!-- <input type="text" onkeyup="this.value=this.value.replace(/[^0-9]/g,'')" id="tambahtambah2"> -->
+    <!-- <button onclick="tambahkan()">tambah</button> -->
+
+
+    <!-- <br><br><br> -->
+
+
+    <!-- Latihan 3 -->
+
+    <div class="calcu">
+        <h2>Kalkulator (agak) Pintar</h2>
+        <div class="tempatKeluar" id="output"></div>
+        <div class="listTombol">
+            <button class="spesial hap" onclick="document.getElementById('output').innerHTML=''">Hapus</button>
+            <button class="spesial hap" onclick="document.getElementById('output').innerHTML=''">Bersihkan</button>
+            <button onclick="angka('7')">7</button>
+            <button onclick="angka('8')">8</button>
+            <button onclick="angka('9')">9</button>
+            <button onclick="hitung('/')">&divide;</button>
+            <button onclick="angka('4')">4</button>
+            <button onclick="angka('5')">5</button>
+            <button onclick="angka('6')">6</button>
+            <button onclick="hitung('*')">&times;</button>
+            <button onclick="angka('1')">1</button>
+            <button onclick="angka('2')">2</button>
+            <button onclick="angka('3')">3</button>
+            <button onclick="hitung('-')">-</button>
+            <button onclick="angka('0')" class="spesial">0</button>
+            <button onclick="itung('=')">=</button>
+            <button onclick="hitung('+')">+</button>
+        </div>
+    </div>
+
+
+    <script>
+        // program latihan 1
+        // function ambil() {
+
+        //     if (document.getElementById('ikan') === 0 || document.getElementById('ikan') === '') {
+        //         console.log('')
+
+        //     }
+        //     console.log(document.getElementById('ikan').value)
+        // }
+
+        // program latihan 2
+        // function tambahkan() {
+        //     let angka1 = parseFloat(document.getElementById('tambahtambah1').value)
+        //     let angka2 = parseFloat(document.getElementById('tambahtambah2').value)
+        //     let proses1 = angka1 + angka2
+        //     if (isNaN(proses1) || proses1 === 0) {
+        //         console.log('ga bisa')
+        //     }
+        //     else {
+        //         console.log(angka1 + angka2)
+        //     }
+        // }
+
+
+        // program latihan 3
+        let display = document.getElementById('output')
+
+        function angka(take) {
+            display.innerText += take
+        }
+
+        function hitung(take2) {
+            let teks = display.innerText
+            let potongOPTerakhir = teks.slice(-1)
+            const daftarOperator = ['+', '-', '×', '÷', '*', '/'];
+
+            if (teks === "" && take2 !== '-') return;
+            if (daftarOperator.includes(potongOPTerakhir)) {
+                display.innerText = teks.slice(0, -1)
+            }
+
+
+
+
+            if (take2 === '/') { take2 = "&divide;" }
+            if (take2 === '*') { take2 = "&times;" }
+            display.innerHTML += take2
+
+        }
+
+        function itung() {
+            // let hasil = eval("10 + 5"); // Hasil: 15
+
+            let itungan = display.innerText.replace(/×/g, '*').replace(/÷/g, '/')
+            display.innerHTML = eval(itungan)
+        }
+
+        document.addEventListener('keydown', function (ujang) {
+            const kunci = ujang.key;
+
+            if (kunci >= '0' && kunci <= '9') {
+                angka(kunci); // Memanggil fungsi angka() milikmu
+            }
+
+            if (kunci === '+' || kunci === '-' || kunci === '*' || kunci === '/') {
+                ujang.preventDefault();
+                hitung(kunci);
+            }
+
+            if (kunci === 'Enter') {
+                itung('='); // Memanggil fungsi itung() milikmu
+            }
+
+            if (kunci === 'Backspace') {
+
+                let kurangi = display.innerText
+                display.innerText = kurangi.slice(0, -1)
+            }
+
+            if (kunci === 'Delete') {
+                display.innerHTML = ''
+            }
+
+            if (kunci === 'Escape') {
+                display.innerHTML = ''
+                // document.getElementById('output').innerHTML = '';
+            }
+        });
+    </script>
+</body>
+
+</html>
